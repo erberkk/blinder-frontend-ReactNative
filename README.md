@@ -51,7 +51,8 @@ Blinder is a specialized social networking application exclusively for universit
 - npm or yarn
 - Expo CLI
 - iOS Simulator (for Mac users) or Android Studio (for Android development)
-
+- Please update the SPOTIFY_CLIENT_ID on profile.tsx and GOOGLE_CLIENT_ID, MICROSOFT_CLIENT_ID on login.tsx
+  
 ## 🚀 Getting Started
 
 1. Clone the repository:
@@ -155,7 +156,8 @@ Blinder, sadece üniversite öğrencilerine özel bir sosyal ağ uygulamasıdır
 - npm veya yarn
 - Expo CLI
 - iOS Simulator (Mac kullanıcıları için) veya Android Studio (Android geliştirmesi için)
-
+- Please update the SPOTIFY_CLIENT_ID on profile.tsx and GOOGLE_CLIENT_ID, MICROSOFT_CLIENT_ID on login.tsx
+  
 ## 🚀 Başlangıç
 
 1. Depoyu klonlayın:
