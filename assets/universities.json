@@ -1,0 +1,834 @@
+[
+    {
+        "name": "ABDULLAH GÜL ÜNİVERSİTESİ",
+        "location": "KAYSERİ"
+    },
+    {
+        "name": "ACIBADEM MEHMET ALİ AYDINLAR ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "ADANA ALPARSLAN TÜRKEŞ BİLİM VE TEKNOLOJİ ÜNİVERSİTESİ",
+        "location": "ADANA"
+    },
+    {
+        "name": "ADIYAMAN ÜNİVERSİTESİ",
+        "location": "ADIYAMAN"
+    },
+    {
+        "name": "AFYON KOCATEPE ÜNİVERSİTESİ",
+        "location": "AFYONKARAHİSAR"
+    },
+    {
+        "name": "AFYONKARAHİSAR SAĞLIK BİLİMLERİ ÜNİVERSİTESİ",
+        "location": "AFYONKARAHİSAR"
+    },
+    {
+        "name": "AĞRI İBRAHİM ÇEÇEN ÜNİVERSİTESİ",
+        "location": "AĞRI"
+    },
+    {
+        "name": "AKDENİZ ÜNİVERSİTESİ",
+        "location": "ANTALYA"
+    },
+    {
+        "name": "AKSARAY ÜNİVERSİTESİ",
+        "location": "AKSARAY"
+    },
+    {
+        "name": "ALANYA ALAADDİN KEYKUBAT ÜNİVERSİTESİ",
+        "location": "ANTALYA"
+    },
+    {
+        "name": "ALANYA ÜNİVERSİTESİ",
+        "location": "ANTALYA"
+    },
+    {
+        "name": "ALTINBAŞ ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "AMASYA ÜNİVERSİTESİ",
+        "location": "AMASYA"
+    },
+    {
+        "name": "ANADOLU ÜNİVERSİTESİ",
+        "location": "ESKİŞEHİR"
+    },
+    {
+        "name": "ANKA TEKNOLOJİ ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "ANKARA BİLİM ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "ANKARA HACI BAYRAM VELİ ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "ANKARA MEDİPOL ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "ANKARA MÜZİK VE GÜZEL SANATLAR ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "ANKARA SOSYAL BİLİMLER ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "ANKARA ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "ANKARA YILDIRIM BEYAZIT ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "ANTALYA BELEK ÜNİVERSİTESİ",
+        "location": "ANTALYA"
+    },
+    {
+        "name": "ANTALYA BİLİM ÜNİVERSİTESİ",
+        "location": "ANTALYA"
+    },
+    {
+        "name": "ARDAHAN ÜNİVERSİTESİ",
+        "location": "ARDAHAN"
+    },
+    {
+        "name": "ARTVİN ÇORUH ÜNİVERSİTESİ",
+        "location": "ARTVİN"
+    },
+    {
+        "name": "ATAŞEHİR ADIGÜZEL MESLEK YÜKSEKOKULU",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "ATATÜRK ÜNİVERSİTESİ",
+        "location": "ERZURUM"
+    },
+    {
+        "name": "ATILIM ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "AVRASYA ÜNİVERSİTESİ",
+        "location": "TRABZON"
+    },
+    {
+        "name": "AYDIN ADNAN MENDERES ÜNİVERSİTESİ",
+        "location": "AYDIN"
+    },
+    {
+        "name": "BAHÇEŞEHİR ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "BALIKESİR ÜNİVERSİTESİ",
+        "location": "BALIKESİR"
+    },
+    {
+        "name": "BANDIRMA ONYEDİ EYLÜL ÜNİVERSİTESİ",
+        "location": "BALIKESİR"
+    },
+    {
+        "name": "BARTIN ÜNİVERSİTESİ",
+        "location": "BARTIN"
+    },
+    {
+        "name": "BAŞKENT ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "BATMAN ÜNİVERSİTESİ",
+        "location": "BATMAN"
+    },
+    {
+        "name": "BAYBURT ÜNİVERSİTESİ",
+        "location": "BAYBURT"
+    },
+    {
+        "name": "BEYKOZ ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "BEZM-İ ÂLEM VAKIF ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "BİLECİK ŞEYH EDEBALİ ÜNİVERSİTESİ",
+        "location": "BİLECİK"
+    },
+    {
+        "name": "BİNGÖL ÜNİVERSİTESİ",
+        "location": "BİNGÖL"
+    },
+    {
+        "name": "BİRUNİ ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "BİTLİS EREN ÜNİVERSİTESİ",
+        "location": "BİTLİS"
+    },
+    {
+        "name": "BOĞAZİÇİ ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "BOLU ABANT İZZET BAYSAL ÜNİVERSİTESİ",
+        "location": "BOLU"
+    },
+    {
+        "name": "BURDUR MEHMET AKİF ERSOY ÜNİVERSİTESİ",
+        "location": "BURDUR"
+    },
+    {
+        "name": "BURSA TEKNİK ÜNİVERSİTESİ",
+        "location": "BURSA"
+    },
+    {
+        "name": "BURSA ULUDAĞ ÜNİVERSİTESİ",
+        "location": "BURSA"
+    },
+    {
+        "name": "ÇAĞ ÜNİVERSİTESİ",
+        "location": "MERSİN"
+    },
+    {
+        "name": "ÇANAKKALE ONSEKİZ MART ÜNİVERSİTESİ",
+        "location": "ÇANAKKALE"
+    },
+    {
+        "name": "ÇANKAYA ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "ÇANKIRI KARATEKİN ÜNİVERSİTESİ",
+        "location": "ÇANKIRI"
+    },
+    {
+        "name": "ÇUKUROVA ÜNİVERSİTESİ",
+        "location": "ADANA"
+    },
+    {
+        "name": "DEMİROĞLU BİLİM ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "DİCLE ÜNİVERSİTESİ",
+        "location": "DİYARBAKIR"
+    },
+    {
+        "name": "DOĞUŞ ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "DOKUZ EYLÜL ÜNİVERSİTESİ",
+        "location": "İZMİR"
+    },
+    {
+        "name": "DÜZCE ÜNİVERSİTESİ",
+        "location": "DÜZCE"
+    },
+    {
+        "name": "EGE ÜNİVERSİTESİ",
+        "location": "İZMİR"
+    },
+    {
+        "name": "ERCİYES ÜNİVERSİTESİ",
+        "location": "KAYSERİ"
+    },
+    {
+        "name": "ERZİNCAN BİNALİ YILDIRIM ÜNİVERSİTESİ",
+        "location": "ERZİNCAN"
+    },
+    {
+        "name": "ERZURUM TEKNİK ÜNİVERSİTESİ",
+        "location": "ERZURUM"
+    },
+    {
+        "name": "ESKİŞEHİR OSMANGAZİ ÜNİVERSİTESİ",
+        "location": "ESKİŞEHİR"
+    },
+    {
+        "name": "ESKİŞEHİR TEKNİK ÜNİVERSİTESİ",
+        "location": "ESKİŞEHİR"
+    },
+    {
+        "name": "FATİH SULTAN MEHMET VAKIF ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "FENERBAHÇE ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "FIRAT ÜNİVERSİTESİ",
+        "location": "ELAZIĞ"
+    },
+    {
+        "name": "GALATASARAY ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "GAZİ ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "GAZİANTEP İSLAM BİLİM VE TEKNOLOJİ ÜNİVERSİTESİ",
+        "location": "GAZİANTEP"
+    },
+    {
+        "name": "GAZİANTEP ÜNİVERSİTESİ",
+        "location": "GAZİANTEP"
+    },
+    {
+        "name": "GEBZE TEKNİK ÜNİVERSİTESİ",
+        "location": "KOCAELİ"
+    },
+    {
+        "name": "GİRESUN ÜNİVERSİTESİ",
+        "location": "GİRESUN"
+    },
+    {
+        "name": "GÜMÜŞHANE ÜNİVERSİTESİ",
+        "location": "GÜMÜŞHANE"
+    },
+    {
+        "name": "HACETTEPE ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "HAKKARİ ÜNİVERSİTESİ",
+        "location": "HAKKARİ"
+    },
+    {
+        "name": "HALİÇ ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "HARRAN ÜNİVERSİTESİ",
+        "location": "ŞANLIURFA"
+    },
+    {
+        "name": "HASAN KALYONCU ÜNİVERSİTESİ",
+        "location": "GAZİANTEP"
+    },
+    {
+        "name": "HATAY MUSTAFA KEMAL ÜNİVERSİTESİ",
+        "location": "HATAY"
+    },
+    {
+        "name": "HİTİT ÜNİVERSİTESİ",
+        "location": "ÇORUM"
+    },
+    {
+        "name": "IĞDIR ÜNİVERSİTESİ",
+        "location": "IĞDIR"
+    },
+    {
+        "name": "ISPARTA UYGULAMALI BİLİMLER ÜNİVERSİTESİ",
+        "location": "ISPARTA"
+    },
+    {
+        "name": "IŞIK ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İBN HALDUN ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İHSAN DOĞRAMACI BİLKENT ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "İNÖNÜ ÜNİVERSİTESİ",
+        "location": "MALATYA"
+    },
+    {
+        "name": "İSKENDERUN TEKNİK ÜNİVERSİTESİ",
+        "location": "HATAY"
+    },
+    {
+        "name": "İSTANBUL AREL ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL ATLAS ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL AYDIN ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL BEYKENT ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL BİLGİ ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL ESENYURT ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL GALATA ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL GEDİK ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL GELİŞİM ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL KENT ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL KÜLTÜR ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL MEDENİYET ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL MEDİPOL ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL NİŞANTAŞI ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL OKAN ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL RUMELİ ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL SABAHATTİN ZAİM ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL SAĞLIK VE SOSYAL BİLİMLER MESLEK YÜKSEKOKULU",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL SAĞLIK VE TEKNOLOJİ ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL ŞİŞLİ MESLEK YÜKSEKOKULU",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL TEKNİK ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL TİCARET ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL TOPKAPI ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL ÜNİVERSİTESİ-CERRAHPAŞA",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL YENİ YÜZYIL ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTANBUL 29 MAYIS ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İSTİNYE ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "İZMİR BAKIRÇAY ÜNİVERSİTESİ",
+        "location": "İZMİR"
+    },
+    {
+        "name": "İZMİR DEMOKRASİ ÜNİVERSİTESİ",
+        "location": "İZMİR"
+    },
+    {
+        "name": "İZMİR EKONOMİ ÜNİVERSİTESİ",
+        "location": "İZMİR"
+    },
+    {
+        "name": "İZMİR KATİP ÇELEBİ ÜNİVERSİTESİ",
+        "location": "İZMİR"
+    },
+    {
+        "name": "İZMİR KAVRAM MESLEK YÜKSEKOKULU",
+        "location": "İZMİR"
+    },
+    {
+        "name": "İZMİR TINAZTEPE ÜNİVERSİTESİ",
+        "location": "İZMİR"
+    },
+    {
+        "name": "İZMİR YÜKSEK TEKNOLOJİ ENSTİTÜSÜ",
+        "location": "İZMİR"
+    },
+    {
+        "name": "KADİR HAS ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "KAFKAS ÜNİVERSİTESİ",
+        "location": "KARS"
+    },
+    {
+        "name": "KAHRAMANMARAŞ İSTİKLAL ÜNİVERSİTESİ",
+        "location": "KAHRAMANMARAŞ"
+    },
+    {
+        "name": "KAHRAMANMARAŞ SÜTÇÜ İMAM ÜNİVERSİTESİ",
+        "location": "KAHRAMANMARAŞ"
+    },
+    {
+        "name": "KAPADOKYA ÜNİVERSİTESİ",
+        "location": "NEVŞEHİR"
+    },
+    {
+        "name": "KARABÜK ÜNİVERSİTESİ",
+        "location": "KARABÜK"
+    },
+    {
+        "name": "KARADENİZ TEKNİK ÜNİVERSİTESİ",
+        "location": "TRABZON"
+    },
+    {
+        "name": "KARAMANOĞLU MEHMETBEY ÜNİVERSİTESİ",
+        "location": "KARAMAN"
+    },
+    {
+        "name": "KASTAMONU ÜNİVERSİTESİ",
+        "location": "KASTAMONU"
+    },
+    {
+        "name": "KAYSERİ ÜNİVERSİTESİ",
+        "location": "KAYSERİ"
+    },
+    {
+        "name": "KIRIKKALE ÜNİVERSİTESİ",
+        "location": "KIRIKKALE"
+    },
+    {
+        "name": "KIRKLARELİ ÜNİVERSİTESİ",
+        "location": "KIRKLARELİ"
+    },
+    {
+        "name": "KIRŞEHİR AHİ EVRAN ÜNİVERSİTESİ",
+        "location": "KIRŞEHİR"
+    },
+    {
+        "name": "KİLİS 7 ARALIK ÜNİVERSİTESİ",
+        "location": "KİLİS"
+    },
+    {
+        "name": "KOCAELİ SAĞLIK VE TEKNOLOJİ ÜNİVERSİTESİ",
+        "location": "KOCAELİ"
+    },
+    {
+        "name": "KOCAELİ ÜNİVERSİTESİ",
+        "location": "KOCAELİ"
+    },
+    {
+        "name": "KOÇ ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "KONYA GIDA VE TARIM ÜNİVERSİTESİ",
+        "location": "KONYA"
+    },
+    {
+        "name": "KONYA TEKNİK ÜNİVERSİTESİ",
+        "location": "KONYA"
+    },
+    {
+        "name": "KTO KARATAY ÜNİVERSİTESİ",
+        "location": "KONYA"
+    },
+    {
+        "name": "KÜTAHYA DUMLUPINAR ÜNİVERSİTESİ",
+        "location": "KÜTAHYA"
+    },
+    {
+        "name": "KÜTAHYA SAĞLIK BİLİMLERİ ÜNİVERSİTESİ",
+        "location": "KÜTAHYA"
+    },
+    {
+        "name": "LOKMAN HEKİM ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "MALATYA TURGUT ÖZAL ÜNİVERSİTESİ",
+        "location": "MALATYA"
+    },
+    {
+        "name": "MALTEPE ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "MANİSA CELÂL BAYAR ÜNİVERSİTESİ",
+        "location": "MANİSA"
+    },
+    {
+        "name": "MARDİN ARTUKLU ÜNİVERSİTESİ",
+        "location": "MARDİN"
+    },
+    {
+        "name": "MARMARA ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "MEF ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "MERSİN ÜNİVERSİTESİ",
+        "location": "MERSİN"
+    },
+    {
+        "name": "MİMAR SİNAN GÜZEL SANATLAR ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "MUDANYA ÜNİVERSİTESİ",
+        "location": "BURSA"
+    },
+    {
+        "name": "MUĞLA SITKI KOÇMAN ÜNİVERSİTESİ",
+        "location": "MUĞLA"
+    },
+    {
+        "name": "MUNZUR ÜNİVERSİTESİ",
+        "location": "TUNCELİ"
+    },
+    {
+        "name": "MUŞ ALPARSLAN ÜNİVERSİTESİ",
+        "location": "MUŞ"
+    },
+    {
+        "name": "NECMETTİN ERBAKAN ÜNİVERSİTESİ",
+        "location": "KONYA"
+    },
+    {
+        "name": "NEVŞEHİR HACI BEKTAŞ VELİ ÜNİVERSİTESİ",
+        "location": "NEVŞEHİR"
+    },
+    {
+        "name": "NİĞDE ÖMER HALİSDEMİR ÜNİVERSİTESİ",
+        "location": "NİĞDE"
+    },
+    {
+        "name": "NUH NACİ YAZGAN ÜNİVERSİTESİ",
+        "location": "KAYSERİ"
+    },
+    {
+        "name": "ONDOKUZ MAYIS ÜNİVERSİTESİ",
+        "location": "SAMSUN"
+    },
+    {
+        "name": "ORDU ÜNİVERSİTESİ",
+        "location": "ORDU"
+    },
+    {
+        "name": "ORTA DOĞU TEKNİK ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "OSMANİYE KORKUT ATA ÜNİVERSİTESİ",
+        "location": "OSMANİYE"
+    },
+    {
+        "name": "OSTİM TEKNİK ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "ÖZYEĞİN ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "PAMUKKALE ÜNİVERSİTESİ",
+        "location": "DENİZLİ"
+    },
+    {
+        "name": "PİRİ REİS ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "RECEP TAYYİP ERDOĞAN ÜNİVERSİTESİ",
+        "location": "RİZE"
+    },
+    {
+        "name": "SABANCI ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "SAĞLIK BİLİMLERİ ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "SAKARYA UYGULAMALI BİLİMLER ÜNİVERSİTESİ",
+        "location": "SAKARYA"
+    },
+    {
+        "name": "SAKARYA ÜNİVERSİTESİ",
+        "location": "SAKARYA"
+    },
+    {
+        "name": "SAMSUN ÜNİVERSİTESİ",
+        "location": "SAMSUN"
+    },
+    {
+        "name": "SANKO ÜNİVERSİTESİ",
+        "location": "GAZİANTEP"
+    },
+    {
+        "name": "SELÇUK ÜNİVERSİTESİ",
+        "location": "KONYA"
+    },
+    {
+        "name": "SİİRT ÜNİVERSİTESİ",
+        "location": "SİİRT"
+    },
+    {
+        "name": "SİNOP ÜNİVERSİTESİ",
+        "location": "SİNOP"
+    },
+    {
+        "name": "SİVAS BİLİM VE TEKNOLOJİ ÜNİVERSİTESİ",
+        "location": "SİVAS"
+    },
+    {
+        "name": "SİVAS CUMHURİYET ÜNİVERSİTESİ",
+        "location": "SİVAS"
+    },
+    {
+        "name": "SÜLEYMAN DEMİREL ÜNİVERSİTESİ",
+        "location": "ISPARTA"
+    },
+    {
+        "name": "ŞIRNAK ÜNİVERSİTESİ",
+        "location": "ŞIRNAK"
+    },
+    {
+        "name": "TARSUS ÜNİVERSİTESİ",
+        "location": "MERSİN"
+    },
+    {
+        "name": "TED ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "TEKİRDAĞ NAMIK KEMAL ÜNİVERSİTESİ",
+        "location": "TEKİRDAĞ"
+    },
+    {
+        "name": "TOBB EKONOMİ VE TEKNOLOJİ ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "TOKAT GAZİOSMANPAŞA ÜNİVERSİTESİ",
+        "location": "TOKAT"
+    },
+    {
+        "name": "TOROS ÜNİVERSİTESİ",
+        "location": "MERSİN"
+    },
+    {
+        "name": "TRABZON ÜNİVERSİTESİ",
+        "location": "TRABZON"
+    },
+    {
+        "name": "TRAKYA ÜNİVERSİTESİ",
+        "location": "EDİRNE"
+    },
+    {
+        "name": "TÜRK HAVA KURUMU ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "TÜRK-ALMAN ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "TÜRKİYE ULUSLARARASI İSLAM, BİLİM VE TEKNOLOJİ ÜNİVERSİTESİ",
+        "location": "-"
+    },
+    {
+        "name": "TÜRK-JAPON BİLİM VE TEKNOLOJİ ÜNİVERSİTESİ",
+        "location": "-"
+    },
+    {
+        "name": "UFUK ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "UŞAK ÜNİVERSİTESİ",
+        "location": "UŞAK"
+    },
+    {
+        "name": "ÜSKÜDAR ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "VAN YÜZÜNCÜ YIL ÜNİVERSİTESİ",
+        "location": "VAN"
+    },
+    {
+        "name": "YALOVA ÜNİVERSİTESİ",
+        "location": "YALOVA"
+    },
+    {
+        "name": "YAŞAR ÜNİVERSİTESİ",
+        "location": "İZMİR"
+    },
+    {
+        "name": "YEDİTEPE ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "YILDIZ TEKNİK ÜNİVERSİTESİ",
+        "location": "İSTANBUL"
+    },
+    {
+        "name": "YOZGAT BOZOK ÜNİVERSİTESİ",
+        "location": "YOZGAT"
+    },
+    {
+        "name": "YÜKSEK İHTİSAS ÜNİVERSİTESİ",
+        "location": "ANKARA"
+    },
+    {
+        "name": "ZONGULDAK BÜLENT ECEVİT ÜNİVERSİTESİ",
+        "location": "ZONGULDAK"
+    }
+]

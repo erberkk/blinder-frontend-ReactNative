@@ -1,0 +1,59 @@
+/* Genel Stiller */
+@font-face {
+    font-family: "AzeretMono-Regular";
+    src: url("../assets/fonts/AzeretMono-Regular.ttf") format("truetype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "AzeretMono-Regular", sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    font-family: "AzeretMono-Regular", sans-serif;
+}
+
+/* Butonlar */
+button {
+    background-color: #6a0dad;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background-color: #4b0082;
+}
+
+/* Form Elemanları */
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* Toast Stili */
+.toast-container {
+    position: fixed;
+    bottom: 12vh;
+    right: 20px;
+    background: white;
+    border-left: 5px solid #6a0dad;
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
+}
