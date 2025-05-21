@@ -51,6 +51,8 @@ const MessagesScreen: React.FC = () => {
     const [isSending, setIsSending] = useState<boolean>(false);
     const [isUnmatching, setIsUnmatching] = useState<boolean>(false);
     const [isUnmatchModalVisible, setIsUnmatchModalVisible] = useState<boolean>(false);
+    const [isGeneratingSuggestion, setIsGeneratingSuggestion] = useState<boolean>(false);
+    const [suggestedMessage, setSuggestedMessage] = useState<string>("");
 
     const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
     const flatListRef = useRef<FlatList>(null);
@@ -254,6 +256,135 @@ const MessagesScreen: React.FC = () => {
         }
     }, [selectedMatch, isUnmatching, router, setMatchedUsers, setSelectedMatch, setMessages]);
 
+    const generateMessageSuggestion = useCallback(async () => {
+        if (!selectedMatch?.match_id || !currentUserId || isGeneratingSuggestion) return;
+
+        setIsGeneratingSuggestion(true);
+        try {
+            const lastMessage = messages[messages.length - 1];
+            const previousMessage = messages[messages.length - 2];
+            if (!lastMessage) return;
+
+            const isLastMessageFromMe = String(lastMessage.sender_id) === currentUserId;
+            const messageToRespondTo = isLastMessageFromMe ? previousMessage : lastMessage;
+            if (!messageToRespondTo) return;
+
+            const englishPrompt = `
+    You are a chat assistant. Suggest a short, natural, and casual reply in English to the message below. Make it sound like a real chat between friends. Do not add explanations. Only reply with the message, nothing else (no names, no emojis, no formal language).
+    
+    Message to reply:
+    "${messageToRespondTo.message_text}"
+            `.trim();
+
+            const englishResponse = await fetch("http://localhost:11434/api/generate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    model: "mistral:latest",
+                    prompt: englishPrompt,
+                    stream: false,
+                    options: {
+                        temperature: 0.92,
+                        top_p: 0.98,
+                        max_tokens: 32,
+                    },
+                }),
+            });
+
+            const englishData = await englishResponse.json();
+            console.log(englishData.response);
+            if (!englishData.response) throw new Error("No English response generated");
+
+            const turkishPrompt = `
+    You are a native Turkish speaker who chats casually with friends every day. Your job is to read the following English message and re-write it as a real, natural, casual Turkish message for a close friend. 
+    
+    **DO NOT translate word by word. Do NOT change the speaker, the meaning, or add any new information or feelings.** Just say what is said, in a way a young Turkish person would on WhatsApp. 
+    
+    Focus on sounding 100% native, relaxed and idiomatic. Avoid formal, stiff or awkward literal translations, and never add extra info.
+    
+    Below are some examples of good and bad translations. Make sure to use the correct, natural Turkish style and avoid the mistakes shown.
+    
+    Incorrect example:
+    English: "Sounds like you'd rather explore the world than play games, I get it! Let's plan a trip together soon."
+    Literal Turkish (wrong!): "Dünyayı keşfetmekten daha fazla oyun oynamak istiyorsun, anladım! Yakında birlikte bir yolculuk planlayalım."
+    Correct Turkish: "Sen galiba gezmeyi oyunlara tercih ediyorsun, seni anlıyorum! Yakında beraber bir yere gidelim."
+    
+    Incorrect example:
+    English: "That's cool! I love exploring new places too. Let's plan a trip soon!"
+    Literal Turkish (wrong!): "Sen galiba yeni yerler keşfetmekten hoşlanıyorsun, beni de anlıyorum! Yakında beraber bir yere gidelim!"
+    Correct Turkish: "Ben de yeni yerler keşfetmeyi çok seviyorum! Hadi yakında bir yere gidelim!"
+    
+    Incorrect example:
+    English: "That sounds fun!"
+    Literal Turkish (wrong!): "Bu kulağa eğlenceli geliyor!"
+    Correct Turkish: "Güzelmiş!" or "Baya eğlenceliymiş!"
+    
+    Incorrect example:
+    English: "Let's plan something fun!"
+    Literal Turkish (wrong!): "Eğlenceli bir şeyler planlayalım."
+    Correct Turkish: "Bir şeyler ayarlayalım!" or "Süper, bir plan yapalım!"
+    
+    Incorrect example:
+    English: "Can't wait to hear more about it!"
+    Literal Turkish (wrong!): "Daha fazlasını duymak için bekleyemem!"
+    Correct Turkish: "Detayları merakla bekliyorum!" or "Anlatmanı sabırsızlıkla bekliyorum!"
+    
+    Incorrect example:
+    English: "Which one do you prefer?"
+    Literal Turkish (wrong!): "Hangisini tercih edersin?"
+    Correct Turkish: "Hangisini seçerdin?" or "Sence hangisi daha iyi?"
+    
+    Important: Only rewrite what is actually said in the English text, do not invent new feelings, do not refer to yourself unless the English message does. Do NOT change who is speaking. Only reply with the Turkish message, nothing else.
+    
+    English: "${englishData.response}"
+    
+    Turkish:
+            `.trim();
+
+            const translationResponse = await fetch("http://localhost:11434/api/generate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    model: "llama3:latest",
+                    prompt: turkishPrompt,
+                    stream: false,
+                    options: {
+                        temperature: 0.6,
+                        top_p: 0.9,
+                        max_tokens: 60,
+                    },
+                }),
+            });
+
+            const translationData = await translationResponse.json();
+            if (!translationData.response) throw new Error("No Turkish response generated");
+
+            const cleanedResponse = translationData.response
+                .replace(/["']/g, "")
+                .replace(/^(Turkish:|Cevap:|Yanıt:)/i, "")
+                .split("\n")[0]
+                .trim();
+
+            setSuggestedMessage(cleanedResponse);
+        } catch (err) {
+            console.error("Generate suggestion error:", err);
+            Alert.alert("Hata", "Mesaj önerisi oluşturulurken bir sorun oluştu.");
+        } finally {
+            setIsGeneratingSuggestion(false);
+        }
+    }, [messages, selectedMatch, currentUserId, isGeneratingSuggestion]);
+
+    const useSuggestion = useCallback(() => {
+        if (suggestedMessage) {
+            setInputText(suggestedMessage);
+            setSuggestedMessage("");
+        }
+    }, [suggestedMessage]);
+
     useEffect(() => {
         fetchCurrentUserId();
     }, [fetchCurrentUserId]);
@@ -405,6 +536,26 @@ const MessagesScreen: React.FC = () => {
                                     multiline
                                     editable={!isUnmatching}
                                 />
+                                <View style={styles.suggestionContainer}>
+                                    {suggestedMessage ? (
+                                        <TouchableOpacity style={styles.suggestionButton} onPress={useSuggestion}>
+                                            <Text style={styles.suggestionText} numberOfLines={1}>
+                                                {suggestedMessage}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    ) : (
+                                        <TouchableOpacity
+                                            style={[styles.aiButton, isGeneratingSuggestion && styles.aiButtonDisabled]}
+                                            onPress={generateMessageSuggestion}
+                                            disabled={isGeneratingSuggestion}>
+                                            {isGeneratingSuggestion ? (
+                                                <ActivityIndicator size="small" color="#fff" />
+                                            ) : (
+                                                <Icon name="robot" size={18} color="#fff" solid />
+                                            )}
+                                        </TouchableOpacity>
+                                    )}
+                                </View>
                                 <TouchableOpacity
                                     style={[styles.sendButton, (isSending || !inputText.trim() || isUnmatching) && styles.sendButtonDisabled]}
                                     onPress={sendMessage}
@@ -608,6 +759,36 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         fontSize: 16,
         fontWeight: "500",
+    },
+    suggestionContainer: {
+        marginRight: 10,
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    aiButton: {
+        width: 42,
+        height: 42,
+        borderRadius: 21,
+        backgroundColor: "#4CAF50",
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 0,
+    },
+    aiButtonDisabled: {
+        backgroundColor: "#BDBDBD",
+        opacity: 0.7,
+    },
+    suggestionButton: {
+        backgroundColor: "#E3F2FD",
+        borderRadius: 21,
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        maxWidth: 200,
+        marginBottom: 0,
+    },
+    suggestionText: {
+        color: "#1976D2",
+        fontSize: 14,
     },
 });
 
