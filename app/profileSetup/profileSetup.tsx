@@ -87,6 +87,8 @@ const ProfileSetupScreen: React.FC<ProfileProps> = ({ navigation }) => {
 
     const [about, setAbout] = useState<string>("");
 
+    const [name, setName] = useState<string>("");
+
     const toggleSelection = (option: string, selected: string[], setSelected: (arr: string[]) => void) => {
         if (selected.includes(option)) {
             setSelected(selected.filter((item) => item !== option));
@@ -134,8 +136,8 @@ const ProfileSetupScreen: React.FC<ProfileProps> = ({ navigation }) => {
     const handleNextStep = () => {
         switch (step) {
             case 1:
-                if (!university) {
-                    showToast.warning("Lütfen üniversitenizi seçin.");
+                if (!name || !university) {
+                    showToast.warning("Lütfen adınızı ve üniversitenizi girin.");
                     return;
                 }
                 break;
@@ -249,6 +251,7 @@ const ProfileSetupScreen: React.FC<ProfileProps> = ({ navigation }) => {
             }
 
             const data = {
+                name,
                 birthdate: format(constructedDate, "yyyy-MM-dd"),
                 university,
                 university_location: universityLocation,
@@ -303,15 +306,22 @@ const ProfileSetupScreen: React.FC<ProfileProps> = ({ navigation }) => {
             case 1:
                 return (
                     <Animatable.View animation="fadeIn" duration={400} style={styles.stepContainer}>
-                        <Text style={styles.stepTitle}>1/12 - Üniversite Seçimi</Text>
+                        <Text style={styles.stepTitle}>1/12 - Ad Soyad ve Üniversite Seçimi</Text>
+                        <Text style={styles.label}>Adınız ve Soyadınız:</Text>
+                        <PaperInput
+                            label="Ad Soyad"
+                            value={name}
+                            onChangeText={setName}
+                            style={[styles.input, { color: '#111' }]}
+                            mode="outlined"
+                            outlineColor="#B794F4"
+                            activeOutlineColor="#805AD5"
+                            theme={{ colors: { primary: "#805AD5", text: "#111", placeholder: "#888" } }}
+                            placeholderTextColor="#888"
+                        />
                         <Text style={styles.label}>Üniversitenizi Seçin:</Text>
                         <View style={styles.pickerContainer}>
-                            <Picker
-                                style={styles.picker}
-                                selectedValue={university}
-                                onValueChange={handleUniversitySelect}
-                                itemStyle={styles.pickerItem}
-                            >
+                            <Picker style={styles.picker} selectedValue={university} onValueChange={handleUniversitySelect} itemStyle={styles.pickerItem}>
                                 <Picker.Item label="Üniversite Seçin" value="" style={styles.pickerItem} />
                                 {universitiesData.map((group, groupIndex) => (
                                     <React.Fragment key={groupIndex}>
@@ -337,25 +347,40 @@ const ProfileSetupScreen: React.FC<ProfileProps> = ({ navigation }) => {
                     <Animatable.View animation="fadeIn" duration={400} style={styles.stepContainer}>
                         <Text style={styles.stepTitle}>2/12 - Doğum Tarihi Seçimi</Text>
                         <Text style={styles.label}>Gün, ay ve yıl bilgilerini seçiniz (18+):</Text>
-                        <View style={styles.dateRow}>
-                            <View style={styles.pickerContainer}>
-                                <Picker style={styles.picker} selectedValue={birthDay} onValueChange={setBirthDay} itemStyle={styles.pickerItem}>
+                        <View style={styles.dateRowCustom}>
+                            <View style={styles.pickerBox}>
+                                <Picker
+                                    style={styles.pickerCustom}
+                                    selectedValue={birthDay}
+                                    onValueChange={setBirthDay}
+                                    itemStyle={styles.pickerItem}
+                                >
                                     <Picker.Item label="Gün" value="" style={styles.pickerItem} />
                                     {days.map((d) => (
                                         <Picker.Item key={d} label={String(d)} value={String(d)} style={styles.pickerItem} />
                                     ))}
                                 </Picker>
                             </View>
-                            <View style={styles.pickerContainer}>
-                                <Picker style={styles.picker} selectedValue={birthMonth} onValueChange={setBirthMonth} itemStyle={styles.pickerItem}>
+                            <View style={styles.pickerBox}>
+                                <Picker
+                                    style={styles.pickerCustom}
+                                    selectedValue={birthMonth}
+                                    onValueChange={setBirthMonth}
+                                    itemStyle={styles.pickerItem}
+                                >
                                     <Picker.Item label="Ay" value="" style={styles.pickerItem} />
                                     {months.map((m) => (
                                         <Picker.Item key={m} label={String(m)} value={String(m)} style={styles.pickerItem} />
                                     ))}
                                 </Picker>
                             </View>
-                            <View style={styles.pickerContainer}>
-                                <Picker style={styles.picker} selectedValue={birthYear} onValueChange={setBirthYear} itemStyle={styles.pickerItem}>
+                            <View style={styles.pickerBox}>
+                                <Picker
+                                    style={styles.pickerCustom}
+                                    selectedValue={birthYear}
+                                    onValueChange={setBirthYear}
+                                    itemStyle={styles.pickerItem}
+                                >
                                     <Picker.Item label="Yıl" value="" style={styles.pickerItem} />
                                     {years.map((y) => (
                                         <Picker.Item key={y} label={String(y)} value={String(y)} style={styles.pickerItem} />
@@ -399,13 +424,14 @@ const ProfileSetupScreen: React.FC<ProfileProps> = ({ navigation }) => {
                         <PaperInput
                             label="Boy (cm)"
                             value={heightValue}
-                            onChangeText={setHeightValue}
-                            style={styles.input}
+                            onChangeText={text => setHeightValue(text.replace(/[^0-9]/g, ""))}
+                            style={[styles.input, { color: '#111' }]}
                             keyboardType="numeric"
                             mode="outlined"
                             outlineColor="#B794F4"
                             activeOutlineColor="#805AD5"
-                            theme={{ colors: { primary: "#805AD5" } }}
+                            theme={{ colors: { primary: "#805AD5", text: "#111", placeholder: "#888" } }}
+                            placeholderTextColor="#888"
                         />
                     </Animatable.View>
                 );
@@ -543,13 +569,14 @@ const ProfileSetupScreen: React.FC<ProfileProps> = ({ navigation }) => {
                             onChangeText={(text) => {
                                 if (text.length <= 128) setAbout(text);
                             }}
-                            style={styles.input}
+                            style={[styles.input, { color: '#111' }]}
                             mode="outlined"
                             multiline
                             numberOfLines={4}
                             outlineColor="#B794F4"
                             activeOutlineColor="#805AD5"
-                            theme={{ colors: { primary: "#805AD5" } }}
+                            theme={{ colors: { primary: "#805AD5", text: "#111", placeholder: "#888" } }}
+                            placeholderTextColor="#888"
                         />
                     </Animatable.View>
                 );
@@ -628,13 +655,13 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         marginBottom: 20,
         textAlign: "center",
-        color: "#6B46C1",
+        color: "#111",
     },
     label: {
         fontSize: 16,
         fontWeight: "600",
         marginBottom: 8,
-        color: "#4A5568",
+        color: "#111",
     },
     pickerContainer: {},
     picker: {
@@ -645,7 +672,7 @@ const styles = StyleSheet.create({
     },
     pickerItem: {
         fontSize: 16,
-        color: "#2D3748",
+        color: "#111",
         backgroundColor: "#EDF2F7",
     },
     input: {
@@ -654,6 +681,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         fontSize: 16,
         paddingHorizontal: 12,
+        color: "#111",
     },
     navigationContainer: {
         flexDirection: "row",
@@ -689,15 +717,25 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
     },
-    dateRow: {
+    dateRowCustom: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: 5,
-        gap: 10,
+        alignItems: "center",
+        gap: 12,
+        marginTop: 8,
+        marginBottom: 8,
     },
-    datePicker: {
+    pickerBox: {
         flex: 1,
-        marginHorizontal: 0,
+        backgroundColor: "#F3F0FF",
+        overflow: "hidden",
+        marginHorizontal: 2,
+    },
+    pickerCustom: {
+        width: "100%",
+        height: 44,
+        color: "#111",
+        backgroundColor: "transparent",
     },
     checkboxContainer: {
         flexDirection: "row",
