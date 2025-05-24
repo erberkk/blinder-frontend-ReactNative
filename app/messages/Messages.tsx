@@ -256,6 +256,16 @@ const MessagesScreen: React.FC = () => {
         }
     }, [selectedMatch, isUnmatching, router, setMatchedUsers, setSelectedMatch, setMessages]);
 
+    const translateToTurkish = async (englishText: string): Promise<string> => {
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(englishText)}&langpair=en|tr`;
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.responseData && data.responseData.translatedText) {
+            return data.responseData.translatedText.trim();
+        }
+        throw new Error("Çeviri yapılamadı");
+    };
+
     const generateMessageSuggestion = useCallback(async () => {
         if (!selectedMatch?.match_id || !currentUserId || isGeneratingSuggestion) return;
 
@@ -269,9 +279,10 @@ const MessagesScreen: React.FC = () => {
             const messageToRespondTo = isLastMessageFromMe ? previousMessage : lastMessage;
             if (!messageToRespondTo) return;
 
+            // 1. İngilizce cevap üret
             const englishPrompt = `
     You are a chat assistant. Suggest a short, natural, and casual reply in English to the message below. Make it sound like a real chat between friends. Do not add explanations. Only reply with the message, nothing else (no names, no emojis, no formal language).
-    
+
     Message to reply:
     "${messageToRespondTo.message_text}"
             `.trim();
@@ -297,79 +308,12 @@ const MessagesScreen: React.FC = () => {
             console.log(englishData.response);
             if (!englishData.response) throw new Error("No English response generated");
 
-            const turkishPrompt = `
-    You are a native Turkish speaker who chats casually with friends every day. Your job is to read the following English message and re-write it as a real, natural, casual Turkish message for a close friend. 
-    
-    **DO NOT translate word by word. Do NOT change the speaker, the meaning, or add any new information or feelings.** Just say what is said, in a way a young Turkish person would on WhatsApp. 
-    
-    Focus on sounding 100% native, relaxed and idiomatic. Avoid formal, stiff or awkward literal translations, and never add extra info.
-    
-    Below are some examples of good and bad translations. Make sure to use the correct, natural Turkish style and avoid the mistakes shown.
-    
-    Incorrect example:
-    English: "Sounds like you'd rather explore the world than play games, I get it! Let's plan a trip together soon."
-    Literal Turkish (wrong!): "Dünyayı keşfetmekten daha fazla oyun oynamak istiyorsun, anladım! Yakında birlikte bir yolculuk planlayalım."
-    Correct Turkish: "Sen galiba gezmeyi oyunlara tercih ediyorsun, seni anlıyorum! Yakında beraber bir yere gidelim."
-    
-    Incorrect example:
-    English: "That's cool! I love exploring new places too. Let's plan a trip soon!"
-    Literal Turkish (wrong!): "Sen galiba yeni yerler keşfetmekten hoşlanıyorsun, beni de anlıyorum! Yakında beraber bir yere gidelim!"
-    Correct Turkish: "Ben de yeni yerler keşfetmeyi çok seviyorum! Hadi yakında bir yere gidelim!"
-    
-    Incorrect example:
-    English: "That sounds fun!"
-    Literal Turkish (wrong!): "Bu kulağa eğlenceli geliyor!"
-    Correct Turkish: "Güzelmiş!" or "Baya eğlenceliymiş!"
-    
-    Incorrect example:
-    English: "Let's plan something fun!"
-    Literal Turkish (wrong!): "Eğlenceli bir şeyler planlayalım."
-    Correct Turkish: "Bir şeyler ayarlayalım!" or "Süper, bir plan yapalım!"
-    
-    Incorrect example:
-    English: "Can't wait to hear more about it!"
-    Literal Turkish (wrong!): "Daha fazlasını duymak için bekleyemem!"
-    Correct Turkish: "Detayları merakla bekliyorum!" or "Anlatmanı sabırsızlıkla bekliyorum!"
-    
-    Incorrect example:
-    English: "Which one do you prefer?"
-    Literal Turkish (wrong!): "Hangisini tercih edersin?"
-    Correct Turkish: "Hangisini seçerdin?" or "Sence hangisi daha iyi?"
-    
-    Important: Only rewrite what is actually said in the English text, do not invent new feelings, do not refer to yourself unless the English message does. Do NOT change who is speaking. Only reply with the Turkish message, nothing else.
-    
-    English: "${englishData.response}"
-    
-    Turkish:
-            `.trim();
+            // 2. İngilizce cevabı Türkçe'ye çevir (LibreTranslate ile)
+            const turkishText = await translateToTurkish(englishData.response);
 
-            const translationResponse = await fetch("http://localhost:11434/api/generate", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    model: "llama3:latest",
-                    prompt: turkishPrompt,
-                    stream: false,
-                    options: {
-                        temperature: 0.6,
-                        top_p: 0.9,
-                        max_tokens: 60,
-                    },
-                }),
-            });
+            // 3. (İsteğe bağlı) Temizlik veya native tweakler burada yapılabilir
 
-            const translationData = await translationResponse.json();
-            if (!translationData.response) throw new Error("No Turkish response generated");
-
-            const cleanedResponse = translationData.response
-                .replace(/["']/g, "")
-                .replace(/^(Turkish:|Cevap:|Yanıt:)/i, "")
-                .split("\n")[0]
-                .trim();
-
-            setSuggestedMessage(cleanedResponse);
+            setSuggestedMessage(turkishText);
         } catch (err) {
             console.error("Generate suggestion error:", err);
             Alert.alert("Hata", "Mesaj önerisi oluşturulurken bir sorun oluştu.");
