@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, ScrollView, ActivityIndicator, FlatList, Dimensions, Linking, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MapComponent from "@/component/MapComponent";
-import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
@@ -105,11 +104,7 @@ const RestaurantsScreen: React.FC = () => {
     }
 
     return (
-        <LinearGradient
-            colors={["#9F7AEA", "#B794F4"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.background}>
+        <View style={styles.background}>
             <View style={styles.container}>
                 <Text style={styles.header}>Restoranları Keşfet</Text>
 
@@ -124,10 +119,11 @@ const RestaurantsScreen: React.FC = () => {
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
+                    <View style={styles.categoryDivider} />
                 </View>
 
                 <View style={styles.contentWrapper}>
-                    <View style={styles.listContainer}>
+                    <View style={styles.listContainerBox}>
                         <FlatList
                             data={restaurants}
                             keyExtractor={(item) => item.name}
@@ -144,7 +140,7 @@ const RestaurantsScreen: React.FC = () => {
                                             <Text style={styles.restaurantRating}>{item.rating}</Text>
                                         </View>
                                         <View style={styles.infoRow}>
-                                            <Icon name="call" size={14} color="#FFFFFF" style={styles.icon} />
+                                            <Icon name="call" size={14} color="#805AD5" style={styles.icon} />
                                             <Text style={styles.restaurantPhone}>{item.phone}</Text>
                                         </View>
                                     </View>
@@ -153,12 +149,12 @@ const RestaurantsScreen: React.FC = () => {
                         />
                     </View>
 
-                    <View style={styles.mapContainer}>
+                    <View style={styles.mapContainerBox}>
                         {restaurants.length > 0 && <MapComponent restaurants={restaurants} universityLocation={universityLocation} />}
                     </View>
                 </View>
             </View>
-        </LinearGradient>
+        </View>
     );
 };
 
@@ -166,6 +162,7 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
         width: "100%",
+        backgroundColor: "#F7F7FA",
     },
     container: {
         flex: 1,
@@ -175,84 +172,100 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#B794F4",
+        backgroundColor: "#F7F7FA",
     },
     loadingText: {
         marginTop: 10,
         fontSize: 18,
-        color: "#FFFFFF",
+        color: "#805AD5",
         fontWeight: "bold",
     },
     header: {
         fontSize: 28,
         fontWeight: "bold",
-        color: "#FFFFFF",
+        color: "#805AD5",
         marginBottom: 20,
         textAlign: "center",
-        textShadowColor: "rgba(0, 0, 0, 0.2)",
+        textShadowColor: "rgba(0, 0, 0, 0.04)",
         textShadowOffset: { width: 1, height: 1 },
         textShadowRadius: 2,
     },
     categoryWrapper: {
-        marginBottom: 20,
+        marginBottom: 10,
         alignItems: "center",
     },
     categoryContainer: {
         alignItems: "center",
         justifyContent: "center",
+        paddingVertical: 4,
     },
     categoryButton: {
         paddingVertical: 8,
         paddingHorizontal: 15,
         borderRadius: 20,
         marginHorizontal: 5,
-        backgroundColor: "rgba(255, 255, 255, 0.3)",
+        backgroundColor: "#F0F0F5",
         borderWidth: 1,
-        borderColor: "rgba(255, 255, 255, 0.4)",
+        borderColor: "#E0E0EA",
     },
     activeCategory: {
         backgroundColor: "#805AD5",
-        borderColor: "#FFFFFF",
+        borderColor: "#805AD5",
     },
     categoryText: {
         fontSize: 14,
-        color: "#FFFFFF",
+        color: "#444",
         fontWeight: "600",
     },
     activeCategoryText: {
-        color: "#FFFFFF",
+        color: "#FFF",
         fontWeight: "700",
+    },
+    categoryDivider: {
+        height: 1,
+        backgroundColor: "#E0E0EA",
+        marginTop: 8,
+        width: "100%",
     },
     contentWrapper: {
         flexDirection: "row",
         flex: 1,
+        gap: 12,
     },
-    listContainer: {
+    listContainerBox: {
         flex: 1,
-        marginRight: 8,
+        marginRight: 6,
+        backgroundColor: "#FFF",
+        borderRadius: 16,
+        padding: 10,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.06,
+        shadowRadius: 8,
+        elevation: 2,
     },
     restaurantCard: {
-        backgroundColor: "rgba(255, 255, 255, 0.15)",
+        backgroundColor: "#F7F7FA",
         borderRadius: 12,
         padding: 15,
         marginBottom: 10,
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 3,
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.04,
+        shadowRadius: 2,
+        elevation: 1,
         borderWidth: 1,
-        borderColor: "rgba(255, 255, 255, 0.2)",
+        borderColor: "#ECECF2",
     },
     restaurantName: {
         fontSize: 18,
         fontWeight: "bold",
-        color: "#FFFFFF",
+        color: "#222",
         marginBottom: 4,
     },
     restaurantAddress: {
         fontSize: 12,
-        color: "#E0CCFF",
+        color: "#888",
         marginBottom: 4,
     },
     infoRow: {
@@ -265,17 +278,24 @@ const styles = StyleSheet.create({
     },
     restaurantRating: {
         fontSize: 14,
-        color: "#FFD700",
+        color: "#805AD5",
+        fontWeight: "bold",
     },
     restaurantPhone: {
         fontSize: 12,
-        color: "#FFFFFF",
+        color: "#444",
     },
-    mapContainer: {
+    mapContainerBox: {
         flex: 1,
-        marginLeft: 8,
-        borderRadius: 12,
+        marginLeft: 6,
+        backgroundColor: "#FFF",
+        borderRadius: 16,
         overflow: "hidden",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.06,
+        shadowRadius: 8,
+        elevation: 2,
     },
 });
 
