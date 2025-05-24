@@ -41,6 +41,7 @@ textarea {
     margin-top: 8px;
     border: 1px solid #ccc;
     border-radius: 6px;
+    color: #111 !important;
 }
 
 /* Toast Stili */
