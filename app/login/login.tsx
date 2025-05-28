@@ -220,232 +220,307 @@ export default function LoginScreen() {
         }
     };
 
+    const handleManualLogin = async () => {
+        try {
+            if (!email || !password) {
+                showToast.error("Lütfen e-posta ve şifrenizi girin");
+                return;
+            }
+
+            const res = await fetch("http://127.0.0.1:5000/auth/signin", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+                await AsyncStorage.setItem("token", data.access_token);
+                setUser(data.user);
+                showToast.success("Giriş başarılı!");
+                const { university, birthdate, gender } = data.user;
+                if (!university || !birthdate || !gender) {
+                    router.replace("/profileSetup/profileSetup");
+                } else {
+                    router.replace("/profile/profile");
+                }
+            } else {
+                showToast.error(data.error || "Giriş başarısız! Lütfen tekrar deneyin.");
+            }
+        } catch (error) {
+            console.error("Manuel giriş hatası:", error);
+            showToast.error("Giriş işlemi başarısız");
+        }
+    };
+
     return (
-        <LinearGradient colors={["#B794F4", "#9F7AEA"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.backgroundGradient}>
+        <LinearGradient
+            colors={["#F7FAFC", "#E9D8FD"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.backgroundGradient}
+        >
             <View style={styles.container}>
-                <View style={styles.card}>
+                <MView style={styles.card}>
                     <Text style={styles.title}>Blinder'a Hoşgeldiniz</Text>
                     <Text style={styles.description}>Sadece üniversite öğrencileri için!</Text>
 
-                    {/* Sosyal Girişler */}
-                    <View style={styles.socialRow}>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="E-posta adresiniz"
+                            placeholderTextColor="#A0AEC0"
+                            value={email}
+                            onChangeText={setEmail}
+                            keyboardType="email-address"
+                            autoCapitalize="none"
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Şifreniz"
+                            placeholderTextColor="#A0AEC0"
+                            value={password}
+                            onChangeText={setPassword}
+                            secureTextEntry
+                        />
                         <Button
-                            icon={() => <MaterialCommunityIcons name="google" size={22} color="#fff" />}
-                            style={styles.googleButton}
-                            labelStyle={styles.socialLabel}
-                            onPress={() => googlePromptAsync()}
-                            disabled={!googleRequest}
-                        >Google</Button>
-                        <Button
-                            icon={() => <MaterialCommunityIcons name="microsoft" size={22} color="#fff" />}
-                            style={styles.microsoftButton}
-                            labelStyle={styles.socialLabel}
-                            onPress={() => microsoftPromptAsync()}
-                            disabled={!microsoftRequest}
-                        >Microsoft</Button>
+                            mode="contained"
+                            onPress={handleManualLogin}
+                            style={styles.loginButton}
+                            labelStyle={styles.loginLabel}
+                        >
+                            Giriş Yap
+                        </Button>
+                        <TouchableOpacity onPress={() => setShowRegisterModal(true)}>
+                            <Text style={styles.registerText}>
+                                Hesabın yok mu? <Text style={styles.registerLink}>Kayıt Ol</Text>
+                            </Text>
+                        </TouchableOpacity>
                     </View>
 
-                    {/* Veya çizgisi */}
                     <View style={styles.orRow}>
                         <View style={styles.line} />
                         <Text style={styles.orText}>veya</Text>
                         <View style={styles.line} />
                     </View>
 
-                    {/* E-posta ile giriş/kayıt */}
-                    <View style={styles.emailRow}>
+                    <View style={styles.socialRow}>
                         <Button
-                            style={styles.emailButton}
-                            labelStyle={styles.emailLabel}
-                            onPress={() => setShowRegisterModal(true)}
-                        >Kayıt Ol</Button>
+                            icon={() => <MaterialCommunityIcons name="google" size={20} color="#2D3748" />}
+                            style={styles.googleButton}
+                            labelStyle={styles.socialLabel}
+                            onPress={() => googlePromptAsync()}
+                            disabled={!googleRequest}
+                        >
+                            Google
+                        </Button>
                         <Button
-                            style={styles.emailButton}
-                            labelStyle={styles.emailLabel}
-                            onPress={() => router.push("/login/signin" as any)}
-                        >Giriş Yap</Button>
+                            icon={() => <MaterialCommunityIcons name="microsoft" size={20} color="#2D3748" />}
+                            style={styles.microsoftButton}
+                            labelStyle={styles.socialLabel}
+                            onPress={() => microsoftPromptAsync()}
+                            disabled={!microsoftRequest}
+                        >
+                            Microsoft
+                        </Button>
                     </View>
-                </View>
+                </MView>
+
+                <Modal
+                    visible={showRegisterModal}
+                    transparent
+                    animationType="slide"
+                    onRequestClose={() => setShowRegisterModal(false)}
+                >
+                    <View style={styles.modalContainer}>
+                        <View style={styles.modalContent}>
+                            <Text style={styles.modalTitle}>Kayıt Ol</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="E-posta adresiniz"
+                                placeholderTextColor="#A0AEC0"
+                                value={email}
+                                onChangeText={setEmail}
+                                keyboardType="email-address"
+                                autoCapitalize="none"
+                            />
+                            <View style={styles.modalButtons}>
+                                <Button
+                                    mode="contained"
+                                    onPress={handleManualRegister}
+                                    style={styles.modalButton}
+                                    labelStyle={styles.modalButtonLabel}
+                                >
+                                    Kod Gönder
+                                </Button>
+                                <Button
+                                    mode="outlined"
+                                    onPress={() => setShowRegisterModal(false)}
+                                    style={styles.modalButton}
+                                    labelStyle={styles.modalButtonLabel}
+                                >
+                                    İptal
+                                </Button>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+
+                <Modal
+                    visible={showVerificationModal}
+                    transparent
+                    animationType="slide"
+                    onRequestClose={() => setShowVerificationModal(false)}
+                >
+                    <View style={styles.modalContainer}>
+                        <View style={styles.modalContent}>
+                            <Text style={styles.modalTitle}>Doğrulama Kodu</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="6 haneli doğrulama kodu"
+                                placeholderTextColor="#A0AEC0"
+                                value={verificationCode}
+                                onChangeText={setVerificationCode}
+                                keyboardType="number-pad"
+                                maxLength={6}
+                            />
+                            <View style={styles.modalButtons}>
+                                <Button
+                                    mode="contained"
+                                    onPress={handleVerifyCode}
+                                    style={styles.modalButton}
+                                    labelStyle={styles.modalButtonLabel}
+                                >
+                                    Doğrula
+                                </Button>
+                                <Button
+                                    mode="outlined"
+                                    onPress={() => setShowVerificationModal(false)}
+                                    style={styles.modalButton}
+                                    labelStyle={styles.modalButtonLabel}
+                                >
+                                    İptal
+                                </Button>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+
+                <Modal
+                    visible={showPasswordModal}
+                    transparent
+                    animationType="slide"
+                    onRequestClose={() => setShowPasswordModal(false)}
+                >
+                    <View style={styles.modalContainer}>
+                        <View style={styles.modalContent}>
+                            <Text style={styles.modalTitle}>Şifre Oluştur</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Şifreniz (en az 6 karakter)"
+                                placeholderTextColor="#A0AEC0"
+                                value={password}
+                                onChangeText={setPassword}
+                                secureTextEntry
+                            />
+                            <View style={styles.modalButtons}>
+                                <Button
+                                    mode="contained"
+                                    onPress={handleSetPassword}
+                                    style={styles.modalButton}
+                                    labelStyle={styles.modalButtonLabel}
+                                >
+                                    Kayıt Ol
+                                </Button>
+                                <Button
+                                    mode="outlined"
+                                    onPress={() => setShowPasswordModal(false)}
+                                    style={styles.modalButton}
+                                    labelStyle={styles.modalButtonLabel}
+                                >
+                                    İptal
+                                </Button>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
             </View>
-
-            {/* Register Modal */}
-            <Modal
-                visible={showRegisterModal}
-                transparent
-                animationType="slide"
-                onRequestClose={() => setShowRegisterModal(false)}>
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>Kayıt Ol</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="E-posta adresiniz"
-                            value={email}
-                            onChangeText={setEmail}
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                        />
-                        <View style={styles.modalButtons}>
-                            <Button
-                                mode="contained"
-                                onPress={handleManualRegister}
-                                style={styles.modalButton}>
-                                Kod Gönder
-                            </Button>
-                            <Button
-                                mode="outlined"
-                                onPress={() => setShowRegisterModal(false)}
-                                style={styles.modalButton}>
-                                İptal
-                            </Button>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
-
-            {/* Verification Modal */}
-            <Modal
-                visible={showVerificationModal}
-                transparent
-                animationType="slide"
-                onRequestClose={() => setShowVerificationModal(false)}>
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>Doğrulama Kodu</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="6 haneli doğrulama kodu"
-                            value={verificationCode}
-                            onChangeText={setVerificationCode}
-                            keyboardType="number-pad"
-                            maxLength={6}
-                        />
-                        <View style={styles.modalButtons}>
-                            <Button
-                                mode="contained"
-                                onPress={handleVerifyCode}
-                                style={styles.modalButton}>
-                                Doğrula
-                            </Button>
-                            <Button
-                                mode="outlined"
-                                onPress={() => setShowVerificationModal(false)}
-                                style={styles.modalButton}>
-                                İptal
-                            </Button>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
-
-            {/* Password Modal */}
-            <Modal
-                visible={showPasswordModal}
-                transparent
-                animationType="slide"
-                onRequestClose={() => setShowPasswordModal(false)}>
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>Şifre Oluştur</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Şifreniz (en az 6 karakter)"
-                            value={password}
-                            onChangeText={setPassword}
-                            secureTextEntry
-                        />
-                        <View style={styles.modalButtons}>
-                            <Button
-                                mode="contained"
-                                onPress={handleSetPassword}
-                                style={styles.modalButton}>
-                                Kayıt Ol
-                            </Button>
-                            <Button
-                                mode="outlined"
-                                onPress={() => setShowPasswordModal(false)}
-                                style={styles.modalButton}>
-                                İptal
-                            </Button>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
         </LinearGradient>
     );
 }
 
 const styles = StyleSheet.create({
     backgroundGradient: {
-        position: "absolute",
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
+        flex: 1,
     },
     container: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        width: "100%",
         padding: 20,
     },
     card: {
         width: "90%",
         maxWidth: 400,
-        padding: 30,
-        borderRadius: 20,
-        backgroundColor: "rgba(255, 255, 255, 0.15)",
+        padding: 24,
+        borderRadius: 16,
+        backgroundColor: "#FFFFFF",
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.2,
-        shadowRadius: 10,
-        elevation: 10,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.15,
+        shadowRadius: 8,
+        elevation: 6,
         alignItems: "center",
-        borderWidth: 1,
-        borderColor: "rgba(255, 255, 255, 0.3)",
     },
     title: {
-        fontSize: 28,
-        fontWeight: "bold",
-        color: "#FFFFFF",
+        fontSize: 30,
+        fontWeight: "700",
+        color: "#2D3748",
         textAlign: "center",
-        marginBottom: 10,
-        textShadowColor: "rgba(0, 0, 0, 0.3)",
-        textShadowOffset: { width: 1, height: 1 },
-        textShadowRadius: 2,
+        marginBottom: 8,
     },
     description: {
-        fontSize: 15,
-        color: "#E0CCFF",
-        textAlign: "center",
-        marginBottom: 20,
-        lineHeight: 20,
-    },
-    socialRow: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        width: "100%",
-        marginVertical: 16,
-    },
-    googleButton: {
-        flex: 1,
-        marginRight: 8,
-        backgroundColor: "#9F7AEA",
-        borderRadius: 10,
-        paddingVertical: 10,
-    },
-    microsoftButton: {
-        flex: 1,
-        marginLeft: 8,
-        backgroundColor: "#9F7AEA",
-        borderRadius: 10,
-        paddingVertical: 10,
-    },
-    socialLabel: {
-        color: "#fff",
-        fontWeight: "bold",
         fontSize: 16,
+        color: "#718096",
+        textAlign: "center",
+        marginBottom: 24,
+    },
+    inputContainer: {
+        width: "100%",
+        marginBottom: 16,
+    },
+    input: {
+        width: "100%",
+        height: 48,
+        borderWidth: 1,
+        borderColor: "#E9D8FD",
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        marginBottom: 16,
+        fontSize: 16,
+        backgroundColor: "#F7FAFC",
+        color: "#2D3748",
+    },
+    loginButton: {
+        width: "100%",
+        backgroundColor: "#D6BCFA",
+        borderRadius: 8,
+        paddingVertical: 4,
+        marginBottom: 16,
+    },
+    loginLabel: {
+        fontSize: 16,
+        fontWeight: "600",
+        color: "#2D3748",
+    },
+    registerText: {
+        fontSize: 14,
+        color: "#718096",
+        textAlign: "center",
+    },
+    registerLink: {
+        color: "#FED7E2",
+        fontWeight: "600",
     },
     orRow: {
         flexDirection: "row",
@@ -456,81 +531,83 @@ const styles = StyleSheet.create({
     line: {
         flex: 1,
         height: 1,
-        backgroundColor: "#E0CCFF",
+        backgroundColor: "#E9D8FD",
     },
     orText: {
-        marginHorizontal: 8,
-        color: "#805AD5",
-        fontWeight: "bold",
-        fontSize: 16,
+        marginHorizontal: 12,
+        color: "#718096",
+        fontSize: 14,
+        fontWeight: "500",
     },
-    emailRow: {
+    socialRow: {
         flexDirection: "row",
         justifyContent: "space-between",
         width: "100%",
-        marginTop: 8,
+        marginVertical: 8,
     },
-    emailButton: {
+    googleButton: {
         flex: 1,
-        marginHorizontal: 4,
-        backgroundColor: "#805AD5",
-        borderRadius: 10,
-        paddingVertical: 10,
+        marginRight: 8,
+        backgroundColor: "#D6BCFA",
+        borderRadius: 8,
+        paddingVertical: 4,
     },
-    emailLabel: {
-        color: "#fff",
-        fontWeight: "bold",
-        fontSize: 16,
+    microsoftButton: {
+        flex: 1,
+        marginLeft: 8,
+        backgroundColor: "#D6BCFA",
+        borderRadius: 8,
+        paddingVertical: 4,
+    },
+    socialLabel: {
+        fontSize: 14,
+        fontWeight: "600",
+        color: "#2D3748",
     },
     modalContainer: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "rgba(0, 0, 0, 0.65)",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
     },
     modalContent: {
         width: "85%",
         maxWidth: 340,
-        backgroundColor: "white",
-        borderRadius: 18,
-        padding: 18,
+        backgroundColor: "#FFFFFF",
+        borderRadius: 16,
+        padding: 20,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.18,
+        shadowOpacity: 0.15,
         shadowRadius: 8,
-        elevation: 7,
-        borderWidth: 1,
-        borderColor: "#E2E8F0",
+        elevation: 6,
     },
     modalTitle: {
         fontSize: 20,
-        fontWeight: "bold",
-        marginBottom: 12,
-        color: "#805AD5",
+        fontWeight: "700",
+        color: "#2D3748",
         textAlign: "center",
-    },
-    input: {
-        width: "100%",
-        height: 44,
-        borderWidth: 1,
-        borderColor: "#E2E8F0",
-        borderRadius: 8,
-        paddingHorizontal: 12,
-        marginBottom: 14,
-        fontSize: 15,
+        marginBottom: 12,
     },
     modalButtons: {
         width: "100%",
         flexDirection: "row",
         justifyContent: "space-between",
         gap: 8,
-        marginTop: 4,
+        marginTop: 8,
     },
     modalButton: {
         flex: 1,
         borderRadius: 8,
-        paddingVertical: 8,
-        marginHorizontal: 2,
+        paddingVertical: 4,
+        marginHorizontal: 4,
+        backgroundColor: "#D6BCFA",
+        borderColor: "#E9D8FD",
+    },
+    modalButtonLabel: {
+        fontSize: 14,
+        fontWeight: "600",
+        color: "#2D3748",
     },
 });
